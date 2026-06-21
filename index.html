@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Pratibha Aggarwal · A Painted Journey</title>
+<meta name="description" content="A scenic, gamified portfolio — glide a Chinese fairy through a hand-painted scroll to discover Pratibha Aggarwal's projects, résumé and certificates." />
+<meta name="theme-color" content="#2f6b55" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ════════ TITLE SCREEN ════════ -->
+<section id="title-screen" class="title-screen">
+  <div class="title-screen__veil" aria-hidden="true"></div>
+  <div class="title-screen__inner">
+    <p class="title-screen__eyebrow">✦ a hand-painted portfolio ✦</p>
+    <h1 class="title-screen__name">Pratibha&nbsp;Aggarwal</h1>
+    <p class="title-screen__role">Software Developer &amp; Engineer</p>
+    <p class="title-screen__quote">“Wander the scroll. Find the lantern-lit checkpoints.<br>Every glow holds a piece of the work.”</p>
+
+    <button id="begin-btn" class="lacquer-btn lacquer-btn--lg" type="button">
+      <span class="lacquer-btn__icon" aria-hidden="true">✿</span>
+      Begin the Journey
+    </button>
+
+    <div class="title-screen__controls">
+      <div class="control-chip">
+        <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> <span>or</span> <kbd>↑↓←→</kbd>
+        <span>— glide</span>
+      </div>
+      <div class="control-chip">
+        <kbd>E</kbd> <span>/</span> <kbd>Enter</kbd>
+        <span>— open a checkpoint</span>
+      </div>
+      <div class="control-chip control-chip--touch">
+        <span class="touch-icon" aria-hidden="true">✦</span>
+        <span>on touch — drag the joystick, tap a glow</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ GAME ════════ -->
+<main id="game-root" class="game-root" aria-hidden="true">
+
+  <div id="viewport" class="viewport">
+    <div id="world" class="world">
+      <img class="world__scene" src="assets/scene.jpg" alt="Hand-painted scroll of jade mountains, a red pavilion and a blossom garden" draggable="false" />
+
+      <!-- checkpoint markers injected by JS -->
+      <div id="checkpoint-layer" class="checkpoint-layer"></div>
+
+      <!-- fairy sprite -->
+      <div id="fairy" class="fairy">
+        <img src="assets/fairy_sprite.png" alt="" draggable="false" class="fairy__img" />
+        <div class="fairy__glow" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="trail-canvas" class="trail-canvas" aria-hidden="true"></canvas>
+
+  <!-- HUD -->
+  <div class="hud" aria-hidden="true">
+    <div class="hud__brand">
+      <button id="restart-btn" class="hud__restart" type="button" aria-label="Return to the title screen" title="Return to title">⛩</button>
+      <span class="hud__brand-text">Pratibha's&nbsp;Scroll</span>
+    </div>
+    <div class="hud__progress">
+      <span id="progress-count">0</span><span class="hud__progress-sep">/</span><span id="progress-total">8</span>
+      <span class="hud__progress-label">checkpoints found</span>
+    </div>
+  </div>
+
+  <div class="hint-bar" aria-hidden="true">
+    <span class="hint-bar__group"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span>
+    <span class="hint-bar__text">glide</span>
+    <span class="hint-bar__divider">·</span>
+    <span class="hint-bar__group"><kbd>E</kbd></span>
+    <span class="hint-bar__text">interact</span>
+  </div>
+
+  <!-- proximity prompt -->
+  <div id="proximity-prompt" class="proximity-prompt" hidden>
+    <span class="proximity-prompt__icon">✦</span>
+    <span id="proximity-prompt-text">Press <kbd>E</kbd> to open</span>
+  </div>
+
+  <!-- mobile joystick -->
+  <div id="joystick" class="joystick" aria-hidden="true">
+    <div class="joystick__base">
+      <div id="joystick-knob" class="joystick__knob"></div>
+    </div>
+  </div>
+
+  <!-- mute / settings could go here later -->
+</main>
+
+<!-- ════════ CHECKPOINT MODAL ════════ -->
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button id="modal-close" class="modal__close" type="button" aria-label="Close">✕</button>
+    <div id="modal-content" class="modal__content">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- toast for "checkpoint discovered" -->
+<div id="toast" class="toast" hidden></div>
+
+<script src="script.js"></script>
+</body>
+
