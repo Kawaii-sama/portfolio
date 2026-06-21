@@ -542,4 +542,4 @@
   document.getElementById('restart-btn').addEventListener('click', returnToTitle);
 
   requestAnimationFrame(tick);
-//})();
+})();
